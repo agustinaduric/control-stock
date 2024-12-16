@@ -1,0 +1,10 @@
+def menu():
+    print("*" * 20)
+    print("\nMenu de gestion de stock")
+    print("\t1. Agregar producto")
+    print("\t2. Modificar cantidad de stock")
+    print("\t3. Eliminar producto")
+    print("\t4. Mostrar productos")
+    print("\t5. Mostrar productos con bajo stock")
+    print("\t6. Salir\n")
+    print("*" * 20)
