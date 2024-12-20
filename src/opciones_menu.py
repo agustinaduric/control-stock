@@ -1,14 +1,17 @@
 from src.db import *
+from src.busqueda import buscar_producto
+from src.menu import menu_busqueda
 
 def registrar_producto():
     print("\nAlta de Producto")
+    print("*" * 23)
     while True:
         try:
             nombre = input("Nombre del producto: ")
             precio = float(input("Precio: "))
             cantidad = int(input("Cantidad: "))
-            descripcion = input("Descripción: ")
-            categoria = input("Categoría: ") or "General"
+            descripcion = input("Descripcion: ")
+            categoria = input("Categoria: ") or "General"
 
             conexion = conectar()
             cursor = conexion.cursor()
@@ -20,16 +23,33 @@ def registrar_producto():
                 (nombre, precio, cantidad, descripcion, categoria),
             )
             conexion.commit()
-            print(f"\nProducto '{nombre}' agregado exitosamente.")
+            print(f"\n'{nombre}' se ha agregado exitosamente.")
             break
+        
         except sqlite3.IntegrityError:
-            print("\nError: El nombre del producto ya existe. Intente nuevamente.")
+            print("\nError: El producto ya se encuentra registrado. Intente nuevamente.")
+            
         finally:
             conexion.close()
+            
+def buscar_producto_menu():
+    menu_busqueda()
+    opcion = int(input("\nSeleccione una opcion: "))
 
+    if opcion == 1:
+        id = input("\nIngrese el ID del producto: ")
+        buscar_producto("id", id)
+    elif opcion == 2:
+        nombre = input("\nIngrese el nombre del producto: ")
+        buscar_producto("nombre", nombre)
+    elif opcion == 3:
+        categoria = input("\nIngrese la categoria del producto: ")
+        buscar_producto("categoria", categoria)
+    else:
+        print("\nIngrese una opcion válida.")
+                  
 def actualizar_producto():
     id = int(input("\nID del producto a modificar: "))
-
     conexion = conectar()
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM productos WHERE id = ?;", (id,))
@@ -42,7 +62,7 @@ def actualizar_producto():
             "UPDATE productos SET cantidad = ? WHERE id = ?;", (nueva_cantidad, id)
         )
         conexion.commit()
-        print("\nProducto actualizado correctamente.")
+        print("\nProducto se ha actualizado correctamente.")
     else:
         print(f"\nEl producto con ID {id} no existe.")
     conexion.close()
@@ -57,7 +77,7 @@ def eliminar_producto():
     if producto:
         cursor.execute("DELETE FROM productos WHERE id = ?;", (id,))
         conexion.commit()
-        print(f"\nProducto {producto[1]} se ha eliminado correctamente.")
+        print(f"\n{producto[1]} se ha eliminado correctamente.")
     else:
         print(f"\nEl producto con ID {id} no existe.")
     conexion.close()
@@ -80,7 +100,7 @@ def mostrar_productos():
             )
 
 def reporte_bajo_stock():
-    limite = int(input("\nIngrese el límite para bajo stock: "))
+    limite = int(input("\nIngrese el limite de stock: "))
 
     conexion = conectar()
     cursor = conexion.cursor()
