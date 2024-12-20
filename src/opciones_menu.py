@@ -57,9 +57,9 @@ def eliminar_producto():
     if producto:
         cursor.execute("DELETE FROM productos WHERE id = ?;", (id,))
         conexion.commit()
-        print(f"Producto {producto[1]} se ha eliminado correctamente.")
+        print(f"\nProducto {producto[1]} se ha eliminado correctamente.")
     else:
-        print(f"El producto con ID {id} no existe.")
+        print(f"\nEl producto con ID {id} no existe.")
     conexion.close()
 
 def mostrar_productos():
