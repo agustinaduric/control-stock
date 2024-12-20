@@ -1,11 +1,21 @@
-def menu():
+def menu_principal():
     print("\n" + "*" * 45)
     print("Menu de gestion de stock")
     print("*" * 45 + "\n")
     print("\t1. Agregar producto")
-    print("\t2. Modificar cantidad de stock")
-    print("\t3. Eliminar producto")
-    print("\t4. Mostrar productos")
-    print("\t5. Mostrar productos con bajo stock")
-    print("\t6. Salir")
+    print("\t2. Buscar producto")
+    print("\t3. Modificar cantidad de stock")
+    print("\t4. Eliminar producto")
+    print("\t5. Mostrar productos")
+    print("\t6. Mostrar productos con bajo stock")
+    print("\t7. Salir")
     print("\n" + "*" * 45)
+
+def menu_busqueda():
+    print("\n" + "*" * 23)
+    print("Busqueda de Producto")
+    print("*" * 23 + "\n")
+    print("\t1. Buscar por ID")
+    print("\t2. Buscar por nombre")
+    print("\t3. Buscar por categoría")
+    print("\n" + "*" * 23)
